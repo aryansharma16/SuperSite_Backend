@@ -14,6 +14,13 @@ const app = express();
 dotenv.config();
 connectDB();
 app.use(express.json()); // this will tell server to accept the json data from the frontend
+
+// Importing CORS middleware
+const cors = require("cors");
+
+// Setting up CORS
+app.use(cors());
+
 app.get("/", (req, res) => {
   res.send("API is Running server is Okk");
 });
@@ -22,33 +29,10 @@ app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-// Start  -------------------------- DeployMent Code ---------------------------------------------------------------- Start //
-// current working directory
-// const __dirname1 = path.resolve();
-// if (process.env.NODE_ENV === "production") {
-//   // our production code
-//   app.use(express.static(path.join(__dirname1, "/frontend/build")));
-
-//   app.get("*", (req, res) =>
-//     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
-//   ); 
-// } else {
-//   app.get("/", (req, res) => {
-//     res.send("API is running Successfully.."); 
-//   });
-// }
-
-// end------------------------------- DeployMent Code ---------------------------------------------------------------- end//
-
-// error Hnadler MiddleWare
+// error Handler Middleware
 app.use(notFound);
 app.use(errorHandler);
+
 const PORT = process.env.PORT || 5200;
 const server = app.listen(
   PORT,
