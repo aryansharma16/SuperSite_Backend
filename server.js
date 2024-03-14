@@ -44,14 +44,19 @@ const server = app.listen(
 );
 
 // Setup the Socket.io in our SERVER
+// const io = require("socket.io")(server, {
+//   pingTimeout: 60000, // it will wait for 60sec before it goes off if the user willl not send the any message within 60 s it will close the connections to save the band width
+//   cors: {
+//     origin: "http://localhost:3000", // to tackle the cross origin problems while buiding the appp
+//     // credentials: true,
+//   },
+// });
 const io = require("socket.io")(server, {
-  pingTimeout: 60000, // it will wait for 60sec before it goes off if the user willl not send the any message within 60 s it will close the connections to save the band width
   cors: {
-    origin: "http://localhost:3000", // to tackle the cross origin problems while buiding the appp
-    // credentials: true,
+    origin: "https://zenithconvo.vercel.app",
+    methods: ["GET", "POST","PUT"],
   },
 });
-
 // create a connection
 
 io.on("connection", (socket) => {
