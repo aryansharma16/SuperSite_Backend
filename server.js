@@ -7,6 +7,9 @@ const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 
+// Importing CORS middleware
+const cors = require("cors");
+
 const { notFound, errorHandler } = require("./middlewares/errorMidlleWare");
 const path = require("path");
 
@@ -14,25 +17,26 @@ const app = express();
 dotenv.config();
 connectDB();
 app.use(express.json()); // this will tell server to accept the json data from the frontend
+app.get("/", (req, res) => {
+  res.send("API is Running server is Okk");
+});
+ 
 
-// Importing CORS middleware
-const cors = require("cors");
 
 // Setting up CORS
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("API is Running server is Okk");
-});
 
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 
-// error Handler Middleware
+
+
+
+// error Hnadler MiddleWare
 app.use(notFound);
 app.use(errorHandler);
-
 const PORT = process.env.PORT || 5200;
 const server = app.listen(
   PORT,
