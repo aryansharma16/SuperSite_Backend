@@ -20,19 +20,13 @@ app.use(express.json()); // this will tell server to accept the json data from t
 app.get("/", (req, res) => {
   res.send("API is Running server is Okk");
 });
- 
-
 
 // Setting up CORS
 app.use(cors());
 
-
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
-
-
-
 
 // error Hnadler MiddleWare
 app.use(notFound);
@@ -54,12 +48,12 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://zenithconvo.vercel.app",
-    methods: ["GET", "POST","PUT"],
+    origin: ["https://zenithconvo.vercel.app", "http://localhost:3000"],
+    methods: ["GET", "POST", "PUT"],
   },
 });
 // create a connection
-
+ 
 io.on("connection", (socket) => {
   console.log("Connected To the Socket.Io..".red.bold);
 
