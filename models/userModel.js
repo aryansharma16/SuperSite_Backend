@@ -1,10 +1,17 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+
+const validRoles = ["teacher", "student", "admin"];
+
 const userModel = mongoose.Schema(
   {
     name: { type: String, trim: true },
     email: { type: String, trim: true, unique: true },
     password: { type: String, trim: true },
+    role: {
+      type: String,
+      enum: validRoles
+    },
     pic: {
       type: String,
       default:

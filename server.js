@@ -28,7 +28,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 
-// error Hnadler MiddleWare
+// error Handler MiddleWare
 app.use(notFound);
 app.use(errorHandler);
 const PORT = process.env.PORT || 5200;

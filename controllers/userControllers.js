@@ -4,10 +4,11 @@ const { genrateToken } = require("../config/genrateToken");
 
 // register user for first time Controller
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
-  if (!name || !email || !password) {
+  const { name, email, password, pic, role } = req.body; // Extracting role from req.body
+  if (!name || !email || !password || !role) {
+    // Checking if role is provided
     res.status(400);
-    throw new Error("Please Enter All the Feilds!");
+    throw new Error("Please Enter All the Fields!");
   }
   const userExists = await User.findOne({ email });
   if (userExists) {
@@ -20,6 +21,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     pic,
+    role, // Including role in the user creation
   });
   if (user) {
     res.status(201).json({
@@ -27,6 +29,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       pic: user.pic,
+      role: user.role, // Sending role in the response
       token: genrateToken(user._id),
     });
   } else {
@@ -46,6 +49,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       pic: user.pic,
+      role: user.role, 
       token: genrateToken(user._id),
       message: "User Loged In",
     });
