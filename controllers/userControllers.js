@@ -5,7 +5,7 @@ const { genrateToken } = require("../config/genrateToken");
 // register user for first time Controller
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic, role } = req.body; // Extracting role from req.body
-  if (!name || !email || !password || !role) {
+  if (!name || !email || !password ) {
     // Checking if role is provided
     res.status(400);
     throw new Error("Please Enter All the Fields!");
